@@ -1,0 +1,503 @@
+DROP DATABASE IF EXISTS brckett;
+CREATE DATABASE brckett
+CHARSET utf8
+COLLATE utf8_hungarian_ci;
+USE brckett;
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Gép: 127.0.0.1
+-- Létrehozás ideje: 2025. Sze 19. 09:26
+-- Kiszolgáló verziója: 10.4.32-MariaDB
+-- PHP verzió: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Adatbázis: `brckett`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `groups`
+--
+
+CREATE TABLE `groups` (
+  `group_id` int(11) NOT NULL,
+  `group_name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `groupscheduleconn`
+--
+
+CREATE TABLE `groupscheduleconn` (
+  `group_id` int(11) NOT NULL,
+  `schedule_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `templatesblocksconn`
+--
+
+CREATE TABLE `templatesblocksconn` (
+  `template_id` int(11) NOT NULL,
+  `block_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `blocks`
+--
+
+CREATE TABLE `blocks` (
+  `block_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `timeStart` int(11) NOT NULL,
+  `timeEnd` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `priority` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `blocks`
+--
+CREATE TABLE `isignored` (
+  `block_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `groupuserconn`
+--
+
+CREATE TABLE `groupuserconn` (
+  `user_Id` int(11) NOT NULL,
+  `group_Id` int(11) NOT NULL,
+  `permission` varchar(128)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `schedules`
+--
+
+CREATE TABLE `schedules` (
+  `template_id` int(11) DEFAULT NULL,
+  `schedule_info` varchar(255) DEFAULT NULL,
+  `schedule_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `schedulesusersconn`
+--
+
+CREATE TABLE `schedulesusersconn` (
+  `user_id` int(11) NOT NULL,
+  `schedule_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `templates`
+--
+
+CREATE TABLE `templates` (
+  `template_id` int(11) NOT NULL,
+  `template_info` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `users`
+--
+
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL,
+  `username` varchar(128) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `display_name` varchar(128) DEFAULT NULL,
+  `Token` varchar(2000) DEFAULT NULL,
+  `Role` varchar(128) DEFAULT NULL,
+  `PASSWORD` varchar(128) NOT NULL,
+  `Description` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `usersettings`
+--
+
+CREATE TABLE `usersettings` (
+  `user_id` int(11) NOT NULL,
+  `settings` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+--
+-- Indexek a kiírt táblákhoz
+--
+
+--
+-- A tábla indexei `blocks`
+--
+ALTER TABLE `blocks`
+  ADD PRIMARY KEY (`block_id`);
+
+--
+-- A tábla indexei `templatesblocksconn`
+--
+ALTER TABLE `templatesblocksconn`
+  ADD PRIMARY KEY (`template_id`,`block_id`),
+  ADD KEY `block_id` (`block_id`);
+  
+--
+-- A tábla indexei `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`group_id`);
+  
+--
+-- A tábla indexei `groupscheduleconn`
+--
+ALTER TABLE `groupscheduleconn`
+  ADD PRIMARY KEY (`group_id`,`schedule_id`),
+  ADD KEY `schedule_id` (`schedule_id`);
+
+--
+-- A tábla indexei `groupuserconn`
+--
+ALTER TABLE `groupuserconn`
+  ADD PRIMARY KEY (`user_Id`,`group_Id`),
+  ADD KEY `group_Id` (`group_Id`);
+
+--
+-- A tábla indexei `schedules`
+--
+ALTER TABLE `schedules`
+  ADD PRIMARY KEY (`schedule_id`),
+  ADD KEY `template_id` (`template_id`);
+
+--
+-- A tábla indexei `schedulesusersconn`
+--
+ALTER TABLE `schedulesusersconn`
+  ADD PRIMARY KEY (`user_id`,`schedule_id`),
+  ADD KEY `schedule_id` (`schedule_id`);
+
+--
+-- A tábla indexei `templates`
+--
+ALTER TABLE `templates`
+  ADD PRIMARY KEY (`template_id`);
+
+--
+-- A tábla indexei `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- A tábla indexei `usersettings`
+--
+ALTER TABLE `usersettings`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- A kiírt táblák AUTO_INCREMENT értéke
+--
+
+--
+-- AUTO_INCREMENT a táblához `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT a táblához `blocks`
+--
+ALTER TABLE `blocks`
+  MODIFY `block_id` int(11) NOT NULL AUTO_INCREMENT;
+  
+--
+-- AUTO_INCREMENT a táblához `schedules`
+--
+ALTER TABLE `schedules`
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT a táblához `templates`
+--
+ALTER TABLE `templates`
+  MODIFY `template_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT a táblához `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Megkötések a kiírt táblákhoz
+--
+
+--
+
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+INSERT INTO templates (template_info)
+VALUES 
+('Empty_Template')
+;
+
+-- === Insert into users ===
+
+-- === Insert into groups ===
+INSERT INTO groups (group_id, group_name)
+VALUES
+('1', 'Default_Group');
+
+-- === Insert into schedules ===
+INSERT INTO schedules (template_id, schedule_info)
+VALUES
+(1, 'Empty_Schedule');
+
+-- === Insert into usersettings ===
+
+-- === Connect groups and users ===
+
+
+-- === Connect groups and schedules ===
+INSERT INTO groupscheduleconn (group_id, schedule_id)
+VALUES
+(1, 1);
+
+-- === Connect schedules and users ===
+
+
+
+
+
+
+-- =========================
+-- templatesblocksconn
+-- =========================
+ALTER TABLE templatesblocksconn
+  ADD CONSTRAINT fk_tbc_template
+    FOREIGN KEY (template_id) REFERENCES templates(template_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT fk_tbc_block
+    FOREIGN KEY (block_id) REFERENCES blocks(block_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =========================
+-- groupscheduleconn
+-- =========================
+ALTER TABLE groupscheduleconn
+  ADD CONSTRAINT fk_gsc_group
+    FOREIGN KEY (group_id) REFERENCES groups(group_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT fk_gsc_schedule
+    FOREIGN KEY (schedule_id) REFERENCES schedules(schedule_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =========================
+-- groupuserconn
+-- =========================
+ALTER TABLE groupuserconn
+  ADD CONSTRAINT fk_guc_user
+    FOREIGN KEY (user_Id) REFERENCES users(user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT fk_guc_group
+    FOREIGN KEY (group_Id) REFERENCES groups(group_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =========================
+-- schedules
+-- =========================
+ALTER TABLE schedules
+  ADD CONSTRAINT fk_schedules_template
+    FOREIGN KEY (template_id) REFERENCES templates(template_id)
+    ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- =========================
+-- schedulesusersconn
+-- =========================
+ALTER TABLE schedulesusersconn
+  ADD CONSTRAINT fk_suc_user
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT fk_suc_schedule
+    FOREIGN KEY (schedule_id) REFERENCES schedules(schedule_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =========================
+-- usersettings
+-- =========================
+ALTER TABLE usersettings
+  ADD CONSTRAINT fk_usersettings_user
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =========================
+-- isIgnored
+-- =========================
+ALTER TABLE isIgnored
+  ADD PRIMARY KEY (user_id, block_id),
+  ADD KEY (block_id),
+  ADD CONSTRAINT fk_isignored_user
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT fk_isignored_block
+    FOREIGN KEY (block_id) REFERENCES blocks(block_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+
+-- =========================================
+-- TRIGGERS
+-- =========================================
+
+DELIMITER $$
+
+-- =========================
+-- Delete empty groups
+-- =========================
+CREATE TRIGGER trg_delete_empty_group
+AFTER DELETE ON groupuserconn
+FOR EACH ROW
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 
+        FROM groupuserconn 
+        WHERE group_Id = OLD.group_Id
+    ) THEN
+        DELETE FROM groups
+        WHERE group_id = OLD.group_Id;
+    END IF;
+END$$
+
+
+-- =========================
+-- Delete empty schedules (user side)
+-- =========================
+CREATE TRIGGER trg_delete_empty_schedule_user
+AFTER DELETE ON schedulesusersconn
+FOR EACH ROW
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM schedulesusersconn 
+        WHERE schedule_id = OLD.schedule_id
+    )
+    AND NOT EXISTS (
+        SELECT 1 FROM groupscheduleconn 
+        WHERE schedule_id = OLD.schedule_id
+    )
+    THEN
+        DELETE FROM schedules 
+        WHERE schedule_id = OLD.schedule_id;
+    END IF;
+END$$
+
+
+-- =========================
+-- Delete empty schedules (group side)
+-- =========================
+CREATE TRIGGER trg_delete_empty_schedule_group
+AFTER DELETE ON groupscheduleconn
+FOR EACH ROW
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM schedulesusersconn 
+        WHERE schedule_id = OLD.schedule_id
+    )
+    AND NOT EXISTS (
+        SELECT 1 FROM groupscheduleconn 
+        WHERE schedule_id = OLD.schedule_id
+    )
+    THEN
+        DELETE FROM schedules 
+        WHERE schedule_id = OLD.schedule_id;
+    END IF;
+END$$
+
+
+-- =========================
+-- Delete unused templates
+-- =========================
+CREATE TRIGGER trg_delete_unused_template
+AFTER DELETE ON schedules
+FOR EACH ROW
+BEGIN
+    IF OLD.template_id IS NOT NULL 
+    AND NOT EXISTS (
+        SELECT 1 FROM schedules 
+        WHERE template_id = OLD.template_id
+    )
+    THEN
+        DELETE FROM templates 
+        WHERE template_id = OLD.template_id;
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+-- =========================
+-- Test User, and Data
+-- =========================
+INSERT INTO `users` (`user_id`, `username`, `email`, `display_name`, `Token`, `Role`, `PASSWORD`, `Description`) VALUES (1, 'JnsKss', 'kissjanos85@gmail.com', 'Kiss_János', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoia2lzc2phbm9zODVAZ21haWwuY29tIiwicGVybWlzc2lvbiI6WyJBZHZhbmNlZEluZm8uUmVhZEJ5VG9rZW4iLCJVc2VyU2V0dGluZ3MuVXBkYXRlIiwiR3JvdXBzLlVwZGF0ZSIsIlVzZXJzLlVwZGF0ZSIsIlVzZXJzLkRlbGV0ZSIsIkFkdmFuY2VkSW5mby5VcGRhdGUiLCJBZHZhbmNlZEluZm8uQ3JlYXRlIiwiQWR2YW5jZWRJbmZvLkRlbGV0ZSIsIkxvZ2luLlB1dCJdLCJleHAiOjE3NzcwMzQ3NDUsImlzcyI6IkhCU1oiLCJhdWQiOiIxM0EifQ.xB8_SdmnV43TVRcvOWbdv_qQwYZ-qIWWwlyyVzjuw-s', 'User', 'rXcrOiYkLjnIQUy3WJIs0w==.UBZVlZZXpEH9JsUpYANgB+FvDnB6TQngHuwhdjORHek=', 'Empty Description');
+
+INSERT INTO `usersettings` (`user_id`, `settings`) VALUES ('1', 'dark-mode/false/month');
+
+INSERT INTO `templates` (`template_id`, `template_info`) VALUES (2, 'Itt minden fontos infót tartok'), (3, 'Default Group Template'), (4, 'Ide jegyzem fel a munkával kapcsolatos eseményeim'), (5, 'Default Group Template');
+
+INSERT INTO `schedules` (`template_id`, `schedule_info`, `schedule_id`) VALUES ('2', 'A saját menő naptáram', 2), ('3', 'Default Group Schedule', 3), ('4', 'Munka naptár', 4), ('5', 'Default Group Schedule', 5);
+
+INSERT INTO `groups` (`group_id`, `group_name`) VALUES (2, 'Baráti Kör'), (3, 'Munkatársak');
+
+INSERT INTO `blocks` (`block_id`, `date`, `timeStart`, `timeEnd`, `title`, `description`, `priority`) VALUES (1, '2026-09-01', '0', '1439', 'Tanítás kezdete', 'Ekkor kezdődik a 2026-2027 tanév', '1'), (2, '2026-09-01', '960', '1140', 'XY Születésnapja', 'Ajándékot kell vegyek', '3'), (3, '2026-08-20', '0', '1439', 'Kenyér Ünnepe', 'Ünnepeljük a kenyeret', '2'), (4, '2026-06-19', '0', '1439', 'Fezen', 'Party!!!', '1'), (5, '2026-06-20', '0', '1439', 'Fezen', 'Party!!!', '2'), (6, '2026-06-21', '0', '1439', 'Fezen', 'Party!!!', '3'), (7, '2026-12-24', '1020', '1200', 'Ütköző blokk', 'Ez egy tesztelést segítő blokk', '1'), (8, '2026-12-24', '900', '1080', 'Ütköző blokk', 'Ez egy tesztelést segítő blokk', '3');
+
+INSERT INTO `schedulesusersconn` (`user_id`, `schedule_id`) VALUES ('1', '2'), ('1', '4');
+
+INSERT INTO `groupscheduleconn` (`group_id`, `schedule_id`) VALUES ('2', '3'), ('3', '5');
+
+INSERT INTO `groupuserconn` (`user_Id`, `group_Id`, `permission`) VALUES ('1', '2', 'Admin'), ('1', '3', 'Admin');
+
+INSERT INTO `templatesblocksconn` (`template_id`, `block_id`) VALUES ('2', '3'), ('3', '4'), ('3', '5'), ('3', '6'), ('3', '7'), ('3', '8'), ('4', '1'), ('4', '2');
+
+INSERT INTO `isignored` (`block_id`, `user_id`) VALUES ('1', '1');
+
+COMMIT;

@@ -1,0 +1,231 @@
+/* Terms checkbox styling */
+.terms-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0 0 0;
+    user-select: none;
+}
+
+.terms-checkbox input[type="checkbox"] {
+    accent-color: var(--formactivecolor);
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--inputbordercolor);
+    transition: box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    cursor: pointer;
+}
+
+.terms-checkbox input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--formactivecolor);
+}
+
+.terms-checkbox label {
+    color: var(--formactivelabelcolor);
+    font-size: 1.08em;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding-left: 2px;
+}
+
+.terms-checkbox input[type="checkbox"]:checked + label {
+    color: var(--formactivecolor);
+    font-weight: 600;
+}
+.LoginModule * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+
+body:has(.LoginModule).light-mode {
+    --background: #c300ffd2;
+    --formbgcolor: #5d3fca;
+    --formactivecolor: #94ffa6;
+    --formactivelabelcolor: #94ffa6;
+
+    --inputbordercolor: rgba(255, 255, 255, 0.7);
+    --submitbtncolor: #d9b7eb;
+
+
+}
+body:has(.LoginModule).dark-mode {
+    --background: #1b0031d2;
+    --formbgcolor: #33226d;
+    --formactivecolor: #83f9ff;
+    --formactivelabelcolor: #83f9ff;
+
+    --inputbordercolor: rgba(212,124,255,0.7);
+    --submitbtncolor: #D47CFF;
+
+}
+
+body:has(.LoginModule){
+margin: 0;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+background: var(--background);
+transition: background 0.5s ease;
+}
+
+
+.LoginModule .card {
+width: 380px;
+padding: 32px;
+border-radius: 28px;
+background: var(--formbgcolor);
+box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+color: white;
+overflow: hidden;
+position: relative;
+}
+
+.LoginModule .header {
+text-align: center;
+margin-bottom: 24px;
+}
+
+
+.LoginModule .header h2 {
+margin: 0;
+font-size: 26px;
+letter-spacing: 1px;
+}
+
+
+.LoginModule .tabs {
+display: flex;
+justify-content: center;
+gap: 32px;
+margin-bottom: 28px;
+}
+
+
+.LoginModule .tab {
+cursor: pointer;
+color: rgb(163, 160, 163);
+position: relative;
+}
+
+
+.LoginModule .tab.active 
+{
+    color: var(--formactivelabelcolor);
+ }
+
+.LoginModule .tab.active::after {
+content: "";
+position: absolute;
+bottom: -8px;
+left: 50%;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: var(--formactivecolor);
+}
+
+
+.LoginModule .forms {
+position: relative;
+height: 260px;
+}
+
+
+.LoginModule .form {
+position: absolute;
+inset: 0;
+opacity: 0;
+transform: scale(0.96);
+pointer-events: none;
+transition: 0.4s ease;
+}
+
+
+.LoginModule .form.active {
+    opacity: 1;
+transform: scale(1);
+pointer-events: all;
+}
+
+
+.LoginModule .input {
+position: relative;
+margin: 16px 0;
+}
+
+
+.LoginModule input {
+width: 100%;
+padding: 14px 46px 14px 14px;
+border-radius: 14px;
+border: 2px solid var(--inputbordercolor);
+background: transparent;
+color: white;
+font-size: 15px;
+transition: 0.3s;
+}
+
+
+.LoginModule input::placeholder { color: rgba(255,255,255,0.6); }
+
+.LoginModule input:focus {
+outline: none;
+border-color: #1ECAD3;
+box-shadow: 0 0 0 4px rgba(30,202,211,0.35);
+}
+
+
+.LoginModule .eye {
+position: absolute;
+right: 14px;
+top: 50%;
+transform: translateY(-50%);
+cursor: pointer;
+}
+
+
+.LoginModule button {
+width: 100%;
+margin-top: 20px;
+padding: 14px;
+border-radius: 16px;
+border: none;
+background: linear-gradient(#D47CFF);
+color: #2b145c;
+font-size: 18px;
+cursor: pointer;
+}
+
+.LoginModule input.errorBorder { 
+    border: 2px solid red;
+}
+.LoginModule .submitbtn {
+    background: var(--submitbtncolor);
+    color: #2b145c;
+}
+
+.LoginModule .back-to-site-button {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 10;
+    width: auto;
+    margin-top: 0;
+    padding: 10px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.LoginModule .back-to-site-button:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.35);
+}

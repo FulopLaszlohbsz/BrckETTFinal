@@ -1,0 +1,130 @@
+body:has(.about-container).light-mode {
+    --abbackground: #6f3fb3; 
+    --abcolor: #b8e66a; 
+    --abboxbgcolor:rgba(184, 230, 106, 0.15);
+    
+}
+body:has(.about-container).dark-mode {
+    --abbackground: #362353; 
+    --abcolor: #c48ce4;
+    --abboxbgcolor:rgba(106, 54, 119, 0.664);
+}
+
+
+body:has(.about-container) {
+    background-color: var(--abbackground); 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.about-container {
+    min-height: 100vh;
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+body:has(.front-page-container) .about-container {
+    padding: 0px;
+    min-height: 10vh;
+}
+
+.about-container h1 {
+    background: none; 
+    color: var(--abcolor); 
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.about-container h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--abcolor);
+    border-radius: 2px;
+    margin-top: 8px;
+}
+
+
+.about-container p {
+    position: relative;
+    min-width: 90%;
+    max-width: 90%;
+    background-color: var(--abboxbgcolor); 
+    color: var(--abcolor); 
+    padding: 25px 30px;
+    border-left: 6px solid var(--abcolor); 
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.6;
+    overflow: hidden; 
+    transition: color 0.3s ease;
+}
+body:has(.front-page-container) .about-container p {
+    min-width: 60%;
+    max-width: 60%;
+}
+
+.about-container p::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px; 
+    height: 100%;
+    background-color: var(--abcolor);
+    z-index: 0;
+    transition: width 0.4s ease;
+}
+
+.about-container p:hover::before {
+    width: 100%; 
+}
+
+.about-container p:hover {
+    color: #4b1f8f; 
+}
+
+.about-container p span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Mobil nezet*/
+@media (max-width: 800px) {
+    .about-container {
+        padding: 36px 14px;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    .about-container h1 {
+        font-size: 2rem;
+        padding-bottom: 6px;
+    }
+
+    .about-container h1::after {
+        width: 48px;
+        height: 3px;
+    }
+
+    .about-container p {
+        max-width: 100%;
+        padding: 16px 18px;
+        border-left: 4px solid var(--abcolor);
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
+    .about-container p::before {
+        width: 4px;
+    }
+}

@@ -1,0 +1,650 @@
+/* Main Calendar Container Styling */
+
+body:has(.calendarView-container) {
+    width: 100%;
+    min-height: 100vh;
+}
+
+body:has(.calendarView-container).light-mode {
+    --cv-bg: #9f74dc;
+    --cv-fgcolor: #a8fa50;
+    --cv-btnbgcolor: #883ac9d2;
+    --cv-btnhovercolor: #c772ff;
+    --cv-listbackground: rgb(181, 90, 181);
+    --cv-btnborder: #ff64ead2;
+}
+
+body:has(.calendarView-container).dark-mode {
+    --cv-bg: #362353;
+    --cv-fgcolor: #d19aff;
+    --cv-btnbgcolor: #4e008df7;
+    --cv-btnhovercolor: #6e29a7f7;
+    --cv-listbackground: #5e3fa7d2;
+    --cv-btnborder: #5e3fa7d2;
+}
+
+body:has(.calendarView-container) {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Main Container */
+.calendarView-container {
+    width: 100%;
+    min-height: calc(100vh - 5rem);
+    margin-top: 5%;
+    color: var(--cv-fgcolor);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0 1rem 1rem;
+    box-sizing: border-box;
+}
+
+/* Left Sidebar (Schedule List) */
+.calendarView-leftSide {
+    width: 280px;
+    min-width: 260px;
+    max-width: 320px;
+    background: linear-gradient(135deg, var(--cv-listbackground), rgba(181, 90, 181, 0.8));
+    color: var(--cv-fgcolor);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-right: 3px solid var(--cv-btnborder);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    max-height: calc(100vh - 200px);
+}
+
+.calendarView-leftSide:hover {
+    width: 300px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Left Side Wrapper */
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Schedule List Header */
+.leftSide-header {
+    padding: 18px 16px 14px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.leftSide-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #c1ff72;
+}
+
+/* Schedule List */
+.leftSide-list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.leftSide-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.leftSide-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.leftSide-list::-webkit-scrollbar-thumb {
+    background: var(--cv-btnhovercolor);
+    border-radius: 3px;
+    transition: background 0.3s ease;
+}
+
+.leftSide-list::-webkit-scrollbar-thumb:hover {
+    background: var(--cv-fgcolor);
+}
+
+/* Schedule Item */
+.leftSide-item {
+    padding: 12px 14px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    word-break: break-word;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.leftSide-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: var(--cv-fgcolor);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+}
+
+.leftSide-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(6px);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.leftSide-item:hover::before {
+    transform: scaleY(1);
+}
+
+.leftSide-item.active {
+    background: linear-gradient(135deg, var(--cv-btnhovercolor), rgba(199, 114, 255, 0.7));
+    border: 2px solid var(--cv-fgcolor);
+    font-weight: 700;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateX(0);
+}
+
+.leftSide-item.active::before {
+    transform: scaleY(1);
+    width: 100%;
+    background: var(--cv-fgcolor);
+    opacity: 0.3;
+}
+
+.leftSide-item:active {
+    transform: translateX(3px);
+}
+
+/* Left Side Buttons Container */
+.leftSide-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Left Side Buttons */
+.leftSide-buttons button {
+    padding: 11px 14px;
+    background: linear-gradient(135deg, var(--cv-btnbgcolor), rgba(136, 58, 201, 0.7));
+    color: var(--cv-fgcolor);
+    border: 2px solid var(--cv-btnborder);
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.leftSide-buttons button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.leftSide-buttons button:hover {
+    background: linear-gradient(135deg, var(--cv-btnhovercolor), rgba(199, 114, 255, 0.8));
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    border-color: var(--cv-fgcolor);
+}
+
+.leftSide-buttons button:hover::before {
+    left: 100%;
+}
+
+.leftSide-buttons button:active {
+    transform: translateY(-1px);
+}
+
+.leftSide-buttons button:nth-child(1) {
+    background: linear-gradient(135deg, #23CE6B, #06BCC1);
+    border-color: #4dd0e1;
+}
+
+.leftSide-buttons button:nth-child(1):hover {
+    background: linear-gradient(135deg, #2fe87d, #0dd9dd);
+    box-shadow: 0 6px 16px rgba(35, 206, 107, 0.4);
+}
+
+/* Right Side (Calendar Display) */
+.calendarView-rightSide {
+    flex: 1;
+    min-width: 0;
+    background: var(--cv-bg);
+    border-radius: 16px;
+    padding: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Modal Blur Effect */
+.hard-blur {
+    background: rgba(103, 40, 145, 0.7);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    padding: 24px;
+    box-sizing: border-box;
+    gap: 16px;
+}
+
+.hard-blur h2 {
+    color: var(--cv-fgcolor);
+    font-size: 20px;
+    margin: 0 0 16px 0;
+    text-align: center;
+}
+
+.hard-blur input,
+.hard-blur textarea {
+    background: rgba(133, 23, 236, 0.6);
+    color: var(--cv-fgcolor);
+    border: 2px solid var(--cv-btnhovercolor);
+    padding: 10px 12px;
+    margin: 6px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.hard-blur input:focus,
+.hard-blur textarea:focus {
+    outline: none;
+    background: rgba(133, 23, 236, 0.8);
+    border-color: #00FFF7;
+    box-shadow: 0 0 12px rgba(0, 255, 247, 0.3);
+}
+
+.hard-blur input::placeholder,
+.hard-blur textarea::placeholder {
+    color: rgba(168, 250, 80, 0.6);
+}
+
+.hard-blur button {
+    background: var(--cv-btnbgcolor);
+    color: var(--cv-fgcolor);
+    border: 2px solid var(--cv-btnborder);
+    padding: 10px 20px;
+    margin: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.hard-blur button:hover {
+    background: var(--cv-btnhovercolor);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hard-blur button:active {
+    transform: translateY(0);
+}
+
+.hard-blur .sch-edit-inputs {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hard-blur .sch-dlt-btn {
+    background: linear-gradient(135deg, #ff4444, #cc0000) !important;
+    color: white !important;
+    border: 2px solid #aa0000 !important;
+}
+
+.hard-blur .sch-dlt-btn:hover {
+    background: linear-gradient(135deg, #ff6666, #dd0000) !important;
+    filter: brightness(110%);
+    transform: translateY(-2px);
+}
+
+/* Popup Modal Styling */
+.calendarView-container .popup-overlay {
+    position: fixed;
+    top: 15%;
+    bottom: 15%;
+    left: 0;
+    right: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.calendarView-container .popup-content {
+    background: linear-gradient(135deg, rgba(110, 41, 167, 0.65), rgba(75, 20, 130, 0.65));
+    border: 2px solid rgba(199, 114, 255, 0.4);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 16px 20px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.calendarView-container .popup-content h2 {
+    color: #c1ff72;
+    font-size: 16px;
+    margin: 0 0 6px 0;
+    text-align: center;
+    font-weight: 700;
+}
+
+.calendarView-container .popup-content input {
+    background: rgba(140, 60, 200, 0.5);
+    color: var(--cv-fgcolor);
+    border: 1.5px solid rgba(199, 114, 255, 0.5);
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.calendarView-container .popup-content input:focus {
+    outline: none;
+    background: rgba(140, 60, 200, 0.7);
+    border-color: #00FFF7;
+    box-shadow: 0 0 12px rgba(0, 255, 247, 0.3);
+}
+
+.calendarView-container .popup-content input::placeholder {
+    color: rgba(168, 250, 80, 0.6);
+}
+
+.calendarView-container .sch-edit-inputs {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.calendarView-container .popup-content button {
+    background: linear-gradient(135deg, var(--cv-btnbgcolor), rgba(136, 58, 201, 0.6));
+    color: var(--cv-fgcolor);
+    border: 1.5px solid var(--cv-btnhovercolor);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.calendarView-container .popup-content button:hover {
+    background: linear-gradient(135deg, var(--cv-btnhovercolor), rgba(199, 114, 255, 0.7));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(199, 114, 255, 0.3);
+    border-color: #00FFF7;
+}
+
+.calendarView-container .popup-content button:active {
+    transform: translateY(0);
+}
+
+.calendarView-container .sch-dlt-btn {
+    background: linear-gradient(135deg, #ff4444, #cc0000) !important;
+    color: white !important;
+    border: 1.5px solid #aa0000 !important;
+}
+
+.calendarView-container .sch-dlt-btn:hover {
+    background: linear-gradient(135deg, #ff6666, #dd0000) !important;
+    filter: brightness(110%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4) !important;
+}
+
+/* Tablet Responsiveness 
+@media (max-width: 1024px) {
+    .calendarView-leftSide {
+        width: 100%;
+        max-width: 100%;
+        border-right: none;
+        border-bottom: 3px solid var(--cv-btnborder);
+        max-height: 320px;
+    }
+
+    .calendarView-leftSide:hover {
+        width: 100%;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .leftSide {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr auto;
+        height: auto;
+        gap: 0;
+    }
+
+    .leftSide-header {
+        grid-column: 1 / -1;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .leftSide-list {
+        grid-column: 1 / 2;
+        max-height: 200px;
+    }
+
+    .leftSide-buttons {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        flex-direction: column;
+        border-top: none;
+        border-left: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .calendarView-rightSide {
+        width: 100%;
+        padding: 14px;
+    }
+
+    .hard-blur {
+        padding: 20px;
+    }
+}*/
+
+/* Mobile Responsiveness 
+@media (max-width: 768px) {
+    .calendarView-container {
+        margin-top: 0;
+        padding: 1rem 0.5rem 1rem;
+        gap: 12px;
+    }
+
+    .calendarView-leftSide {
+        width: 100%;
+        order: 2;
+        border-radius: 14px;
+        border-right: none;
+        border-bottom: 3px solid var(--cv-btnborder);
+        max-height: 280px;
+    }
+
+    .leftSide {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calendarView-rightSide {
+        width: 100%;
+        order: 1;
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .leftSide-header {
+        padding: 14px 12px 10px;
+    }
+
+    .leftSide-list {
+        max-height: 180px;
+        flex-shrink: 1;
+    }
+
+    .leftSide-item {
+        padding: 12px;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .leftSide-buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border-left: none;
+        border-top: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .leftSide-buttons button {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .sch-edit-inputs {
+        flex-direction: column !important;
+    }
+
+    .hard-blur button {
+        width: 100%;
+    }
+
+    .hard-blur {
+        padding: 16px;
+    }
+
+    .hard-blur h2 {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .hard-blur input,
+    .hard-blur textarea {
+        width: 100%;
+        margin: 4px 0;
+    }
+}*/
+
+@media (max-width: 480px) {
+    .calendarView-container {
+        padding: 0.8rem 0.5rem 0.8rem;
+        gap: 10px;
+    }
+
+    .calendarView-leftSide {
+        max-height: 220px;
+        border-radius: 12px;
+    }
+
+    .calendarView-rightSide {
+        border-radius: 12px;
+        padding: 10px;
+    }
+
+    .leftSide-list {
+        max-height: 200px;
+        padding: 0.75rem;
+    }
+
+    .leftSide-item {
+        padding: 10px;
+        font-size: 12px;
+        margin-bottom: 3px;
+    }
+
+    .leftSide-header {
+        padding: 14px 12px 10px;
+    }
+
+    .leftSide-header h3 {
+        font-size: 13px;
+    }
+
+    .leftSide-buttons {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .leftSide-buttons button {
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+
+    .hard-blur {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .hard-blur h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .hard-blur input,
+    .hard-blur textarea {
+        padding: 8px;
+        font-size: 12px;
+        margin: 3px 0;
+    }
+
+    .hard-blur button {
+        padding: 8px 16px;
+        font-size: 12px;
+        min-width: auto;
+    }
+}

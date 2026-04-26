@@ -1,0 +1,36 @@
+body:has(.colors-and-fonts).light-mode {
+    --background: #6f3fb3;
+    --fgcolor: #a8fa50;
+    --btnbgcolor: #883ac9d2;
+    --btnhovercolor: #c772ff;
+    --pfpborder: purple;
+    --btnborder: #5a1394d2;
+    --imgUrl: url("/src/assets/logout_Light.png");
+}
+body:has(.colors-and-fonts).dark-mode {
+    --background: #362353;
+    --fgcolor: #d19aff;
+    --btnbgcolor: #4e008df7;
+    --btnhovercolor: #6e29a7f7;
+    --pfpborder: #5e3fa7d2;
+    --btnborder: #5e3fa7d2;
+    --imgUrl: url("/src/assets/logout_Dark.png");
+}
+
+.colors-and-fonts div
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));;
+}
+.colors-and-fonts div span
+{
+    border: 1px solid black;
+}
+.colors-and-fonts 
+{
+    margin-top: 10%;
+    gap: 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+body{ height: auto;}

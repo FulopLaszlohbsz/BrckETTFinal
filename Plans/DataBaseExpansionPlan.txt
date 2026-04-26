@@ -1,0 +1,10 @@
+Templates -> TemplatesBlocksConn -> Blocks
+
+Blocks:
+Id
+Date		---	"WHICH DAY"
+TimeStart	---	"Event Start (Hrs)"
+TimeEnd		---	"Evnet End (Hrs)"
+Title
+Description
+Priority

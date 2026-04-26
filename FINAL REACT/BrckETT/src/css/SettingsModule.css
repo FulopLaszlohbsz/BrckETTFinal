@@ -1,0 +1,507 @@
+body:has(.settings-module).light-mode {
+    --background: #6f3fb3;
+    --fgcolor: #a8fa50;
+    --btnbgcolor: #883ac9d2;
+    --btnhovercolor: #c772ff;
+    --pfpborder: purple;
+    --btnborder: #5a1394d2;
+    --imgUrl: url("/src/assets/logout_Light.png");
+}
+body:has(.settings-module).dark-mode {
+    --background: #362353;
+    --fgcolor: #d19aff;
+    --btnbgcolor: #4e008df7;
+    --btnhovercolor: #6e29a7f7;
+    --pfpborder: #5e3fa7d2;
+    --btnborder: #5e3fa7d2;
+    --imgUrl: url("/src/assets/logout_Dark.png");
+}
+
+body:has(.settings-module) {
+    background: linear-gradient(135deg, #1c1c1c, #2d004d);
+    min-height: 100vh;
+}
+
+
+body:has(.settings-module) .settings-delete-account-btn {
+    background-color: #e62e2e;
+    border: 2px solid rgb(121, 0, 0);
+    margin-top: 20px;
+    width: 100%;
+}
+body:has(.settings-module) .settings-delete-account-btn:hover {
+    background-color: #f15050;
+    border: 2px solid rgb(121, 0, 0);
+    margin-top: 20px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.settings-module {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.settings-panel {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    color: white;
+}
+
+.settings-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 14px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+    color: #a8fa50;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.settings-back-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.14);
+}
+
+body.dark-mode .settings-back-btn {
+    color: #c48ce4;
+}
+
+.settings-panel h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.settings-panel h2 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 5px;
+}
+
+
+
+.settings-module .settings-category{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.settings-module .settings-column{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: -webkit-fill-available;
+    justify-content: space-evenly;
+}
+.settings-module .settings-column.align-left{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+.settings-module .settings-radio-btn{
+    padding: 10px 20px;
+    background-color: #6f3fb3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.settings-column input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.settings-column button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #6f3fb3;
+    color: #a8fa50;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+body.dark-mode .settings-column button {
+    background: #362353;
+    color: #c48ce4;
+}
+
+body.dark-mode  .settings-column button{
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.light-mode .settings-column button:hover {
+    background: #883ac9;
+}
+
+body.dark-mode .settings-column button:hover {
+    background: #472e6c;
+}
+
+
+.settings-module .settings-radio-btn:hover{
+    background-color: #883ac9d2;
+}
+.settings-module .settings-save-btn{
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    font-weight: bold;
+    background: linear-gradient(90deg, #5a1394, #883ac9);
+    color: #a8fa50;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+body.dark-mode .settings-module .settings-save-btn {
+    background: #362353;
+    color: #c48ce4;
+}
+
+body.dark-mode .settings-module .settings-save-btn {
+    transition: background 0.5s ease, color 0.3s ease;
+}
+
+body.light-mode .settings-module .settings-save-btn {
+    transition: background 0.5s ease, color 0.3s ease;
+}
+
+.settings-save-btn:hover {
+    transform: translateY(-2px);
+}
+
+.display-grid {
+    grid-template-columns: 1fr auto;
+}
+
+
+.theme-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #a8fa50;
+    border-radius: 30px;
+    transition: 0.4s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    top: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+
+.theme-switch input:checked + .slider {
+    background-color: #6f3fb3;
+}
+
+.theme-switch input:checked + .slider::before {
+    transform: translateX(30px);
+}
+
+
+
+.layout-select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    min-width: 120px;
+}
+
+.layout-select:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #a8fa50;
+}
+
+.layout-select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #a8fa50;
+    box-shadow: 0 0 10px rgba(168, 250, 80, 0.2);
+}
+
+.layout-select option {
+    background: #2d004d;
+    color: white;
+}
+
+body.dark-mode .layout-select {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .layout-select option {
+    background: #1c1c1c;
+}
+
+
+.password-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeOverlayIn 0.25s ease;
+}
+
+.password-popup {
+    background: rgba(45, 0, 77, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: popupIn 0.3s ease;
+    transform-origin: center;
+}
+
+@keyframes fadeOverlayIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popupIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.85) translateY(30px);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.03) translateY(-4px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.password-popup h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.password-popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.password-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.password-input-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #a8fa50;
+}
+
+.password-input-group input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.password-input-group input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #a8fa50;
+    box-shadow: 0 0 10px rgba(168, 250, 80, 0.2);
+}
+
+.password-input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.description-textarea {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.description-textarea:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #a8fa50;
+    box-shadow: 0 0 10px rgba(168, 250, 80, 0.2);
+}
+
+.description-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    color: #a8fa50;
+}
+
+.password-toggle-btn:hover {
+    transform: scale(1.15);
+    filter: brightness(1.2);
+}
+
+.password-popup-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.password-popup-buttons button {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.btn-confirm {
+    background: linear-gradient(90deg, #5a1394, #883ac9);
+    color: #a8fa50;
+}
+
+.btn-confirm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(168, 250, 80, 0.3);
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.settings-module .input-error {
+    border-color: #ff4d4d !important;
+    box-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+}
+.settings-module .error-text {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .settings-panel h1 {
+        font-size: 1.75rem;
+    }
+
+    .settings-panel h2 {
+        font-size: 1.2rem;
+    }
+
+    .settings-module p,
+    .settings-column input,
+    .settings-column button,
+    .settings-module .settings-save-btn,
+    .layout-select,
+    .password-popup-buttons button {
+        font-size: 0.9rem;
+    }
+
+    .password-input-group label,
+    .password-input-group input,
+    .description-textarea {
+        font-size: 0.85rem;
+    }
+}

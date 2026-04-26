@@ -1,0 +1,99 @@
+body:has(.LoginModule) .top-navbar
+{
+  visibility: collapse;
+}
+
+body:has(.profile-container) .top-navbar
+{
+  visibility: collapse;
+}
+
+body:has(.top-navbar).light-mode {
+    --navbackground: rgba(167, 255, 52, 0.8);
+    --navtextcolor: #000000;
+    --navpfpbgcolor: #ffffff;
+    --navfgcolor: #ffffff;
+    --navhovercolor: rgba(193, 255, 114, 0.6);
+}
+body:has(.top-navbar).dark-mode {
+    --navbackground: #310058d2;
+    --navtextcolor: #ffffff;
+    --navpfpbgcolor: #5f005f;
+    --navfgcolor: #000000;
+    --navhovercolor: #632c91d2;
+}
+
+
+
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: -webkit-fill-available;
+  background: var(--navbackground);
+  backdrop-filter: blur(10px);
+  color: var(--navfgcolor);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 50;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+
+.top-navbar button a {
+  color: var(--navtextcolor);
+  text-decoration: none;
+}
+
+.top-navbar .profile-button:hover {
+  background-color: #c772ff;
+}
+
+
+
+.collapse-on .top-navbar.hidden {
+  transform: translateY(-85%);
+  opacity: 0.6;
+}
+
+
+.collapse-on .top-navbar.visible {
+  transform: translateY(0);
+}
+
+.top-navbar .nav-button:hover {
+  background-color: var(--navhovercolor); 
+}
+
+.top-navbar .profile-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--navpfpbgcolor);
+  color: var(--navtextcolor); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.top-navbar .nav-button {
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  background: none;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.top-navbar .nav-button:hover {
+  background-color: var(--navhovercolor); 
+}
+
+
